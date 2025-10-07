@@ -33,7 +33,17 @@ public class AutoServiceImpl implements AutoService {
 
     @Override
     public AutoDto getByRendszam(String rsz) {
-        return null;
+        /*AutoEntity e = repo.getByRendszam(rsz);
+        AutoDto d = modelMapper.map(e,AutoDto.class);
+        return d;*/
+
+        AutoEntity e = null;
+        for(AutoEntity e1: repo.findAll()){
+            if(e1.getRendszam().equals(rsz)){
+                e = e1;
+            }
+        }
+        return modelMapper.map(e, AutoDto.class);
     }
 
     @Override

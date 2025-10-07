@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AutoRepository
         extends JpaRepository<AutoEntity, Long> {
+
+    AutoEntity getByRendszam(String rendszam);
 }

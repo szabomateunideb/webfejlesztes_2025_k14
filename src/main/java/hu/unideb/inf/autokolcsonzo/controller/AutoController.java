@@ -3,10 +3,7 @@ package hu.unideb.inf.autokolcsonzo.controller;
 import hu.unideb.inf.autokolcsonzo.service.AutoService;
 import hu.unideb.inf.autokolcsonzo.service.dto.AutoDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auto")
@@ -41,5 +38,10 @@ public class AutoController {
     @GetMapping("/byId")
     public AutoDto getAutoById(@RequestParam Long id){
         return autoService.getById(id);
+    }
+
+    @GetMapping("/byRendszam/{rsz}")
+    public AutoDto getAutoByRendszam(@PathVariable String rsz){
+        return autoService.getByRendszam(rsz);
     }
 }
