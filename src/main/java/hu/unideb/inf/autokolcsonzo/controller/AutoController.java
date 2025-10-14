@@ -35,6 +35,11 @@ public class AutoController {
                 .build(),"XYZ-789");
     }
 
+    @PostMapping("/register/{rendszam}")
+    public AutoDto registerWithRendszam(@RequestBody AutoDto car, @PathVariable String rendszam){
+        return autoService.registerWithRendszam(car,rendszam);
+    }
+
     @GetMapping("/byId")
     public AutoDto getAutoById(@RequestParam Long id){
         return autoService.getById(id);
