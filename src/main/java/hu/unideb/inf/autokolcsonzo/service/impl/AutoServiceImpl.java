@@ -4,6 +4,7 @@ import hu.unideb.inf.autokolcsonzo.data.entity.AutoEntity;
 import hu.unideb.inf.autokolcsonzo.data.repository.AutoRepository;
 import hu.unideb.inf.autokolcsonzo.service.AutoService;
 import hu.unideb.inf.autokolcsonzo.service.dto.AutoDto;
+import hu.unideb.inf.autokolcsonzo.service.mapper.AutoMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,12 @@ public class AutoServiceImpl implements AutoService {
 
     final   AutoRepository repo;
 
-    public AutoServiceImpl(ModelMapper modelMapper, AutoRepository repo) {
+    final AutoMapper autoMapper;
+
+    public AutoServiceImpl(ModelMapper modelMapper, AutoRepository repo, AutoMapper autoMapper) {
         this.modelMapper = modelMapper;
         this.repo = repo;
+        this.autoMapper = autoMapper;
     }
 
     @Override
@@ -33,17 +37,17 @@ public class AutoServiceImpl implements AutoService {
 
     @Override
     public AutoDto getByRendszam(String rsz) {
-        /*AutoEntity e = repo.getByRendszam(rsz);
+        AutoEntity e = repo.getByRendszam(rsz);
         AutoDto d = modelMapper.map(e,AutoDto.class);
-        return d;*/
+        return d;
 
-        AutoEntity e = null;
+        /*AutoEntity e = null;
         for(AutoEntity e1: repo.findAll()){
             if(e1.getRendszam().equals(rsz)){
                 e = e1;
             }
         }
-        return modelMapper.map(e, AutoDto.class);
+        return modelMapper.map(e, AutoDto.class);*/
     }
 
     @Override
