@@ -12,4 +12,5 @@ public interface AutoService {
     AutoDto updateByRendszam(AutoDto autoDto, String rsz);
     List<AutoDto> getAll();
     AutoDto registerWithRendszam(AutoDto autoDto, String rendszam);
+    void deleteByGyartmany(String gyartmany);
 }

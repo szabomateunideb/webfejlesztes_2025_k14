@@ -5,6 +5,8 @@ import hu.unideb.inf.autokolcsonzo.service.dto.AutoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/auto")
 public class AutoController {
@@ -48,5 +50,20 @@ public class AutoController {
     @GetMapping("/byRendszam/{rsz}")
     public AutoDto getAutoByRendszam(@PathVariable String rsz){
         return autoService.getByRendszam(rsz);
+    }
+
+    @DeleteMapping("/{gyartmany}")
+    public void removeByGyartmany(String gyartmany){
+        autoService.deleteByGyartmany(gyartmany);
+    }
+
+    @GetMapping("/findAll")
+    public List<AutoDto> findAll(){
+        return autoService.getAll();
+    }
+
+    @PostMapping("/update/{rsz}")
+    public AutoDto update(@RequestBody AutoDto a, @PathVariable String rsz){
+        return autoService.updateByRendszam(a,rsz);
     }
 }
