@@ -1,6 +1,7 @@
 package hu.unideb.inf.autokolcsonzo.controller;
 
 import hu.unideb.inf.autokolcsonzo.data.entity.FelhasznaloEntity;
+import hu.unideb.inf.autokolcsonzo.data.entity.JogosultsagEntity;
 import hu.unideb.inf.autokolcsonzo.data.repository.FelhasznaloRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class FelhasznaloController {
                         Date.from(Instant.now()),
                         "felh",
                         "pass",
-                        "jogositvany"
+                        "jogositvany",
+                        null
                 )
         );
     return "Sikeres mentés";
