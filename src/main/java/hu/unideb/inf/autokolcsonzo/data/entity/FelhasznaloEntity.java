@@ -29,4 +29,6 @@ public class FelhasznaloEntity {
     private String jelszo;
     @Column(name = "driversLicence")
     private String jogositvanySzam;
+    @ManyToOne
+    private JogosultsagEntity jogosultsag;
 }
