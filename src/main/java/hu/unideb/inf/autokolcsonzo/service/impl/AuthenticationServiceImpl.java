@@ -9,7 +9,9 @@ import hu.unideb.inf.autokolcsonzo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.autokolcsonzo.service.dto.RegisztracioDto;
 import hu.unideb.inf.autokolcsonzo.service.mapper.FelhasznaloMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final FelhasznaloRepository repo;

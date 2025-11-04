@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface FelhasznaloRepository
         extends JpaRepository<FelhasznaloEntity, Long> {
 
-        FelhasznaloEntity findByUsername(String username);
+        FelhasznaloEntity findByFelhasznaloNev(String username);
 }
