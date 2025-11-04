@@ -11,6 +11,9 @@ import hu.unideb.inf.autokolcsonzo.service.mapper.FelhasznaloMapper;
 import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,12 +55,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void bejelentkezes(BejelentkezesDto bejelentkezesDto) {
-        authManager.authenticate(
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        bejelentkezesDto.getFelasznalonev(),
+                        bejelentkezesDto.getFelhasznalonev(),
                         bejelentkezesDto.getJelszo()
                 )
         );
+        context.setAuthentication(auth);
+        SecurityContextHolder.setContext(context);
 
     }
 }

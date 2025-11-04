@@ -1,16 +1,10 @@
 package hu.unideb.inf.autokolcsonzo.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class BejelentkezesDto {
 
-    private String felasznalonev;
+    private String felhasznalonev;
     private String jelszo;
 }
