@@ -8,6 +8,9 @@ import hu.unideb.inf.autokolcsonzo.service.AuthenticationService;
 import hu.unideb.inf.autokolcsonzo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.autokolcsonzo.service.dto.RegisztracioDto;
 import hu.unideb.inf.autokolcsonzo.service.mapper.FelhasznaloMapper;
+import org.apache.catalina.User;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +20,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final FelhasznaloRepository repo;
     private final JogosultsagRepository jogrepo;
     private final FelhasznaloMapper mapper;
+    private final AuthenticationManager authManager;
 
-    public AuthenticationServiceImpl(PasswordEncoder passwordEncoder, FelhasznaloRepository repo, JogosultsagRepository jogrepo, FelhasznaloMapper mapper) {
+    public AuthenticationServiceImpl(PasswordEncoder passwordEncoder, FelhasznaloRepository repo, JogosultsagRepository jogrepo, FelhasznaloMapper mapper, AuthenticationManager authManager) {
         this.passwordEncoder = passwordEncoder;
         this.repo = repo;
         this.jogrepo = jogrepo;
         this.mapper = mapper;
+        this.authManager = authManager;
     }
 
     @Override
@@ -47,6 +52,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void bejelentkezes(BejelentkezesDto bejelentkezesDto) {
+        authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        bejelentkezesDto.getFelasznalonev(),
+                        bejelentkezesDto.getJelszo()
+                )
+        );
 
     }
 }
