@@ -4,6 +4,8 @@ import hu.unideb.inf.autokolcsonzo.service.AuthenticationService;
 import hu.unideb.inf.autokolcsonzo.service.UserService;
 import hu.unideb.inf.autokolcsonzo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.autokolcsonzo.service.dto.RegisztracioDto;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
+@Validated
 public class AuthenticationController {
 
     private final AuthenticationService authService;
@@ -20,7 +23,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/regisztracio")
-    public void regisztracio(@RequestBody RegisztracioDto regisztracioDto) {
+    public void regisztracio(@RequestBody @Valid RegisztracioDto regisztracioDto) {
         authService.regisztracio(regisztracioDto);
     }
 
