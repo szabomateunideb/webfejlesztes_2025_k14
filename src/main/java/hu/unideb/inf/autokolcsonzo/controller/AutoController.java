@@ -3,6 +3,7 @@ package hu.unideb.inf.autokolcsonzo.controller;
 import hu.unideb.inf.autokolcsonzo.service.AutoService;
 import hu.unideb.inf.autokolcsonzo.service.dto.AutoDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class AutoController {
         this.autoService = autoService;
     }
     @GetMapping("/init")
+    @PreAuthorize("hasAnyAuthority('Felhasznalo','ADMIN')")
     public void init() {
         autoService.registerWithRendszam(AutoDto.builder()
                 .gyartmany("Suzuki")
@@ -38,11 +40,13 @@ public class AutoController {
     }
 
     @PostMapping("/register/{rendszam}")
+    @PreAuthorize("hasAnyAuthority('Felhasznalo')")
     public AutoDto registerWithRendszam(@RequestBody AutoDto car, @PathVariable String rendszam){
         return autoService.registerWithRendszam(car,rendszam);
     }
 
     @GetMapping("/byId")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public AutoDto getAutoById(@RequestParam Long id){
         return autoService.getById(id);
     }
