@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
@@ -16,6 +17,7 @@ import java.util.function.Function;
 
 import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
+@Component
 public class TokenServiceImpl implements TokenService {
     @Override
     public String extractUsername(String token) {
@@ -58,7 +60,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     private SecretKey getKey(){
-        byte[] keyBytes = Decoders.BASE64.decode("oitguijopkfgrthujgftzhuzzziopkfghujfghjf");
+        byte[] keyBytes = Decoders.BASE64.decode("oitguijopkfgrthujgftzhuzzziopkfghujfghjfzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 
         return Keys.hmacShaKeyFor(keyBytes);
     }

@@ -5,9 +5,11 @@ import hu.unideb.inf.autokolcsonzo.data.entity.JogosultsagEntity;
 import hu.unideb.inf.autokolcsonzo.data.repository.FelhasznaloRepository;
 import hu.unideb.inf.autokolcsonzo.data.repository.JogosultsagRepository;
 import hu.unideb.inf.autokolcsonzo.service.AuthenticationService;
+import hu.unideb.inf.autokolcsonzo.service.TokenService;
 import hu.unideb.inf.autokolcsonzo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.autokolcsonzo.service.dto.RegisztracioDto;
 import hu.unideb.inf.autokolcsonzo.service.mapper.FelhasznaloMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,20 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final FelhasznaloRepository repo;
     private final JogosultsagRepository jogrepo;
     private final FelhasznaloMapper mapper;
     private final AuthenticationManager authManager;
-
-    public AuthenticationServiceImpl(PasswordEncoder passwordEncoder, FelhasznaloRepository repo, JogosultsagRepository jogrepo, FelhasznaloMapper mapper, AuthenticationManager authManager) {
-        this.passwordEncoder = passwordEncoder;
-        this.repo = repo;
-        this.jogrepo = jogrepo;
-        this.mapper = mapper;
-        this.authManager = authManager;
-    }
+    private final TokenService tokenService;
 
     @Override
     public void regisztracio(RegisztracioDto regisztracioDto) {
@@ -54,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public void bejelentkezes(BejelentkezesDto bejelentkezesDto) {
+    public String bejelentkezes(BejelentkezesDto bejelentkezesDto) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -64,6 +60,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
         context.setAuthentication(auth);
         SecurityContextHolder.setContext(context);
+
+        FelhasznaloEntity f =
+                repo.findByFelhasznaloNev(bejelentkezesDto.getFelhasznalonev());
+        return tokenService.generateToken(f);
 
     }
 }

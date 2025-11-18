@@ -6,5 +6,5 @@ import hu.unideb.inf.autokolcsonzo.service.dto.RegisztracioDto;
 public interface AuthenticationService {
 
     public void regisztracio(RegisztracioDto regisztracioDto);
-    public void bejelentkezes(BejelentkezesDto bejelentkezesDto);
+    public String bejelentkezes(BejelentkezesDto bejelentkezesDto);
 }
